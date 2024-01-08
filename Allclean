@@ -2,3 +2,4 @@
 
 cd sdfIbmESI && ./Allclean
 cd ../sdfIbmESISphereLaminar && ./Allclean
+cd ../sdfIbmESISphereLaminarParallel && ./Allclean

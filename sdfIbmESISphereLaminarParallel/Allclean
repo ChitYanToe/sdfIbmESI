@@ -15,6 +15,6 @@ rm -fr [0-9] [1-9]*
 rm -fr processor*
 rm -fr postProcessing
 rm -r  log.*
-
+rm -r cloud.*
 echo Done
 #------------------------------------------------------------------------------

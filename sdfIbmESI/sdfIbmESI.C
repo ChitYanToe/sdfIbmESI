@@ -76,10 +76,7 @@ int main(int argc, char *argv[])
     // if start-time > 0, read from start-time-folder for solidDict, otherwise read from case root
     if(runTime.time().value() > 0)
     {
-	    if(!Foam::Pstream::parRun())
-		    dictfile = mesh.time().timeName() + "/solidDict";
-	    else
-		    dictfile = mesh.time().timeName() + "/solidDict";
+	    dictfile = mesh.time().timeName() + "/solidDict";
     }
     else
     {
@@ -153,7 +150,7 @@ int main(int argc, char *argv[])
 		{
 			for (int i=0; i<Pstream::nProcs() ;i++)
 			{
-				file_name = "./processor"+ std::to_string(i) + "/" + runTime.timeName() + "/solidDict";
+				file_name = "./processor"+ std::to_string(i) + "/" + runTime.timeName()+"/solidDict";
 				solidcloud.saveRestart(file_name);
 			}
 		}
