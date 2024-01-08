@@ -1,7 +1,13 @@
-Compilation steps for sdfIbmESI solver
+This project is re-implementation of sdfibm solver that was originally developed by Zhang(2020), in OpenFOAM-v2112 version.
+
+Compilation steps for sdfIbmESI solver 
 =====================================
 1. Run Allrun script as by typing
 	./Allrun
 
 2. Source exportFile.sh file as by typing
 	source exportFile.sh 
+
+
+Ref:
+Chenguang Zhang. sdfibm: a Signed Distance Field Based Discrete Forcing Immersed Boundary Method in OpenFOAM. Computer Physics Communications (accepted 2020).
