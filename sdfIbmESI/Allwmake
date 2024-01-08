@@ -5,6 +5,8 @@ cd ../libmotion && wmake
 cd ../libcollision && wmake
 cd ../ && wmake
 
+cd tool_vof && wmake
+
 ###export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/libmotion
 ###export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/libshape
 ###export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/libcollision

@@ -38,3 +38,5 @@ fi
 if test -f $FOAM_USER_APPBIN/smoothvof; then
 	rm -r $FOAM_USER_APPBIN/smoothvof
 fi
+
+cd tool_vof && wclean
