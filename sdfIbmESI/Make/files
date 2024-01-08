@@ -1,0 +1,9 @@
+solidcloud.C
+solid.C
+meshinfo.C
+logger.C
+geometrictools.C
+cellenumerator.C
+sdfIbmESI.C
+
+EXE = $(FOAM_USER_APPBIN)/sdfIbmESI

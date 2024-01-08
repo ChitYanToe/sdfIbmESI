@@ -1,0 +1,160 @@
+#include "createRDeltaT.H"
+
+Info<< "Reading field p\n" << endl;
+volScalarField p
+(
+    IOobject
+    (
+        "p",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
+Info<< "Reading field U\n" << endl;
+volVectorField U
+(
+    IOobject
+    (
+        "U",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
+surfaceScalarField phi
+(
+	IOobject
+       	( "phi", 
+	  runTime.timeName(), 
+	  mesh, 
+	  IOobject::READ_IF_PRESENT, 
+	  IOobject::AUTO_WRITE 
+	),
+        linearInterpolate(U) & mesh.Sf() 
+);
+
+//#include "createPhi.H"
+
+IOdictionary transportProperties
+(
+    IOobject(
+        "transportProperties",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ_IF_MODIFIED,
+        IOobject::NO_WRITE
+    )
+);
+
+dimensionedScalar nu   
+(	
+	"nu",
+	dimViscosity,
+	transportProperties
+);
+
+
+dimensionedScalar rho 
+(	
+	"rho",
+	dimDensity,
+	transportProperties
+);
+
+
+dimensionedScalar alpha
+(	
+	"alpha",
+	transportProperties
+);
+
+volScalarField As
+(
+	IOobject
+	("As",
+	runTime.timeName(),
+	mesh, 
+	IOobject::NO_READ, 
+	IOobject::AUTO_WRITE
+	), 
+	mesh,
+	dimensionedScalar("As", dimless, 0.0), 
+	zeroGradientFvPatchScalarField::typeName
+);
+
+volScalarField Ct
+(
+	IOobject
+	("Ct", 
+	runTime.timeName(),
+	mesh,
+	IOobject::NO_READ,
+	IOobject::AUTO_WRITE
+	), 
+	mesh,
+	dimensionedScalar("Ct", dimless, 0.0), 
+	zeroGradientFvPatchScalarField::typeName
+);
+
+volVectorField Fs 
+(
+	IOobject
+	("Fs",
+	runTime.timeName(),
+	mesh,
+	IOobject::NO_READ,
+	IOobject::NO_WRITE
+	),
+	mesh,
+        dimensionedVector("Fs", dimAcceleration, vector::zero),
+	fixedValueFvPatchVectorField::typeName 
+);
+
+volScalarField T
+(
+	IOobject
+	("T",
+	runTime.timeName(),
+	mesh,
+	IOobject::MUST_READ,
+	IOobject::AUTO_WRITE
+	),
+	mesh 
+);
+
+volScalarField Ts
+(
+	IOobject
+	("Ts",
+	runTime.timeName(),
+	mesh,
+	IOobject::NO_READ,
+	IOobject::NO_WRITE
+	),
+	mesh,
+        dimensionedScalar("NULL", dimensionSet(0, 0, 0, 1, 0, 0, 0), 0.0)
+);
+
+label pRefCell = 0;
+scalar pRefValue = 0.0;
+setRefCell(p, mesh.solutionDict().subDict("PISO"), pRefCell, pRefValue); //chit added
+//setRefCell(p, pimple.dict(), pRefCell, pRefValue);
+mesh.setFluxRequired(p.name());
+
+
+singlePhaseTransportModel laminarTransport(U, phi);
+
+autoPtr<incompressible::turbulenceModel> turbulence
+(
+    incompressible::turbulenceModel::New(U, phi, laminarTransport)
+);
+
+#include "createMRF.H"
+#include "createFvOptions.H"

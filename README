@@ -1,0 +1,7 @@
+Compilation steps for sdfIbmESI solver
+=====================================
+1. Run Allrun script as by typing
+	./Allrun
+
+2. Source exportFile.sh file as by typing
+	source exportFile.sh 

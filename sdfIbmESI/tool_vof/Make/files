@@ -1,0 +1,8 @@
+../meshinfo.C
+../logger.C
+../cellenumerator.C
+../geometrictools.C
+solidcloud.C
+smoothvof.C
+
+EXE = $(FOAM_USER_APPBIN)/smoothvof

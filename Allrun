@@ -1,0 +1,11 @@
+#!/bin/bash
+cd sdfIbmESI && ./Allwmake
+echo "=============="
+echo "===source====="
+cd ../
+source exportFile.sh
+echo "=============="
+echo "== sdfIbmESI solver needs to be linked with its libraries =="
+echo "== If you exit this bash process, you need to link manually by using export command =="
+echo "======================="
+cd sdfIbmESISphereLaminar && ./Allrun

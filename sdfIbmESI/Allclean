@@ -1,0 +1,40 @@
+#!/bin/sh
+
+wclean 
+if test -d libshape/lnInclude; then
+	rm -r libshape/lnInclude
+	cd libshape && wclean && rm libshape.so
+	cd ..
+fi
+
+if test -d libmotion/lnInclude; then
+	rm -r libmotion/lnInclude
+	cd libmotion && wclean && rm libmotion.so
+	cd ..
+fi
+
+if test -d libcollision/lnInclude; then
+	rm -r libcollision/lnInclude
+	cd libcollision && wclean && rm libcollision.so
+	cd ..
+fi
+
+if test -f $FOAM_USER_LIBBIN/libmotion.so; then
+	rm -r $FOAM_USER_LIBBIN/libmotion*
+fi 
+
+if test -f $FOAM_USER_LIBBIN/libshape.so; then
+	rm -r $FOAM_USER_LIBBIN/libshape*
+fi
+
+if test -f $FOAM_USER_LIBBIN/libcollision.so; then
+	rm -r $FOAM_USER_LIBBIN/libcollision*
+fi
+
+if test -f $FOAM_USER_APPBIN/sdfIbmESI; then
+	rm -r $FOAM_USER_APPBIN/sdfIbmESI
+fi
+
+if test -f $FOAM_USER_APPBIN/smoothvof; then
+	rm -r $FOAM_USER_APPBIN/smoothvof
+fi
