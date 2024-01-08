@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 	    if(!Foam::Pstream::parRun())
 		    dictfile = mesh.time().timeName() + "/solidDict";
 	    else
-		    dictfile = "processor0/" + mesh.time().timeName() + "/solidDict";
+		    dictfile = mesh.time().timeName() + "/solidDict";
     }
     else
     {
@@ -150,10 +150,18 @@ int main(int argc, char *argv[])
             {
                 std::string file_name;
                 if(Foam::Pstream::parRun())
-                    file_name = "./processor0/" + runTime.timeName() + "/solidDict";
+		{
+			for (int i=0; i<Pstream::nProcs() ;i++)
+			{
+				file_name = "./processor"+ std::to_string(i) + "/" + runTime.timeName() + "/solidDict";
+				solidcloud.saveRestart(file_name);
+			}
+		}
                 else
-                    file_name = "./" + runTime.timeName() + "/solidDict";
-                solidcloud.saveRestart(file_name);
+		{
+			file_name = "./" + runTime.timeName() + "/solidDict";
+			solidcloud.saveRestart(file_name);
+		}
             }
         }
 

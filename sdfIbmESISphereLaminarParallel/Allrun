@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#------------------------------------------------------------------------------
+echo "Pre-processing case.."
+cp -r 0.orig 0
+
+blockMesh
+
+echo "Decomposing case.."
+decomposePar >> log.preProcessing
+
+np=4
+
+for ((i=0; i<${np}; i++)); do
+    destination_folder="processor${i}"
+    cp "solidDict" "$destination_folder/"
+    echo "Copied solidDict to $destination_folder/"
+done
+
+echo "Running.."
+mpirun -np ${np} sdfIbmESI -parallel > log.sdfIbmESI
+
+echo "Done"
+#------------------------------------------------------------------------------

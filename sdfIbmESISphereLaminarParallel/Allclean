@@ -1,0 +1,20 @@
+#!/bin/bash
+#------------------------------------------------------------------------------
+shopt -s extglob
+
+directory=`pwd`
+
+echo Cleaning directory..
+if [ -d "./constant/polyMesh" ]; then
+  cd ./constant/polyMesh
+  rm -fr !(blockMeshDict)
+  cd $directory
+fi
+
+rm -fr [0-9] [1-9]*
+rm -fr processor*
+rm -fr postProcessing
+rm -r  log.*
+
+echo Done
+#------------------------------------------------------------------------------

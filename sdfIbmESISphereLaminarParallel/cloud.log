@@ -1,0 +1,26 @@
+[24/01/08 11:30:32]	Init from /openfoam-runs/projectWork_Chalmers/accompanyingFiles/sdfIbmESISphereLaminarParallel/processor0/2/solidDict
+[24/01/08 11:30:32]	Summary: 2D FSI, g = (0 0 0). Binary built at Jan  8 2024 11:25:55
+
+******************************** CREATE: SHAPES ********************************
+--> Available shape types:
+[1] Box
+[2] Circle
+[3] Circle_Tail
+[4] Circle_TwoTail
+[5] Ellipse
+[6] Ellipsoid
+[7] Plane
+[8] Rectangle
+[9] Sphere
+--> Used shapes:
+[+] Sphere as sphere1 (sphere, r = 0.100000)
+maximum bounding radius is 0.1
+******************************* CREATE: MOTIONS *******************************
+--> Available motion types:
+[1] Motion000002
+[2] Motion01Mask
+[3] Motion110002
+[4] Motion222000
+[5] MotionOpenClose
+[6] MotionRotor
+[7] MotionSineDirectional
